@@ -19,7 +19,10 @@ static int method_GetTID(sd_bus_message *m, void *userdata, sd_bus_error *ret_er
 		return r;
 	}
 
-	//sd_bus_reply_method_return(m, "");
+	if (array_size < sizeof(pldm_get_tid_request_t)) {
+		fprintf(stderr, "The invalid PLDM request size!\n");
+		return -1;
+	}
 
 	pldm_get_tid_request_t get_tid_req;
 	get_tid_req.pldm_header.instance_id = ((pldm_message_header_t *)array)->instance_id;
@@ -84,11 +87,11 @@ int main(int argc, char *argv[]) {
 
 	/* Install the object */
 	r = sd_bus_add_object_vtable(bus,
-								&slot,
-								"/openbmc/PLDM",  /* object path */
-								"openbmc.PLDM.pldm_rsp",   /* interface name */
-								pldm_resp_vtable,
-								NULL);
+					&slot,
+					"/openbmc/PLDM",  /* object path */
+					"openbmc.PLDM.pldm_rsp",   /* interface name */
+					pldm_resp_vtable,
+					NULL);
 	if (r < 0) {
 		fprintf(stderr, "Failed to issue method call: %s\n", strerror(-r));
 		goto finish;
