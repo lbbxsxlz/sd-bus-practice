@@ -31,11 +31,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	r = sd_bus_message_new_method_call(bus,
-										&m,
-										"openbmc.PLDM",				/* service to contact */
-										"/openbmc/PLDM",				/* object path */
-										"openbmc.PLDM.pldm_rsp",		/* interface name */
-										"GetTID");						/* method name */;
+						&m,
+						"openbmc.PLDM",				/* service to contact */
+						"/openbmc/PLDM",			/* object path */
+						"openbmc.PLDM.pldm_rsp",		/* interface name */
+						"GetTID");				/* method name */;
 	if (r < 0) {
 		fprintf(stderr, "Failed to create method call: %s\n", strerror(-r));
 		goto finish;
@@ -56,11 +56,15 @@ int main(int argc, char *argv[]) {
 	r = sd_bus_message_read_array(reply, 'y', (const void **)&array, &array_size);
 	if (r < 0) {
 		fprintf(stderr, "Failed to parse parameters: %s\n", strerror(-r));
-		return r;
+		goto finish;
 	}
 
 	printf("Receive the response, array size = %ld.\n", array_size);
-
+	if (array_size != sizeof(pldm_get_tid_response_t)) {
+		fprintf(stderr, "The invalid PLDM response size.\n");
+		goto finish;
+	}
+	
 	get_tid_res.pldm_header.instance_id = ((pldm_get_tid_response_t *)array)->pldm_header.instance_id;
 	get_tid_res.pldm_header.pldm_type = ((pldm_get_tid_response_t *)array)->pldm_header.pldm_type;
 	get_tid_res.pldm_header.pldm_command_code = ((pldm_get_tid_response_t *)array)->pldm_header.pldm_command_code;
