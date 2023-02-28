@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 
 	uint8_t *array;
 	size_t array_size;
-	int r;
+	int ret;
 	uint8_t instance_id = 0;
 	pldm_get_tid_request_t get_tid_req;
 	pldm_get_tid_response_t get_tid_res;
@@ -23,45 +23,45 @@ int main(int argc, char *argv[]) {
 	array = (uint8_t *)&get_tid_req;
 	array_size = sizeof(get_tid_req);
 
-	/* Connect to the system bus */
-	r = sd_bus_open_user(&bus);
+	/* Connect to the session bus */
+	ret = sd_bus_open_user(&bus);
 	if (r < 0) {
-		fprintf(stderr, "Failed to connect to user bus: %s\n", strerror(-r));
+		fprintf(stderr, "Failed to connect to user bus: %s\n", strerror(-ret));
 		goto finish;
 	}
 
-	r = sd_bus_message_new_method_call(bus,
-						&m,
-						"openbmc.PLDM",				/* service to contact */
-						"/openbmc/PLDM",			/* object path */
-						"openbmc.PLDM.pldm_rsp",		/* interface name */
-						"GetTID");				/* method name */;
-	if (r < 0) {
-		fprintf(stderr, "Failed to create method call: %s\n", strerror(-r));
+	ret = sd_bus_message_new_method_call(bus,
+					&m,
+					"openbmc.PLDM",				/* service to contact */
+					"/openbmc/PLDM",			/* object path */
+					"openbmc.PLDM.pldm_rsp",		/* interface name */
+					"GetTID");				/* method name */;
+	if (ret < 0) {
+		fprintf(stderr, "Failed to create method call: %s\n", strerror(-ret));
 		goto finish;
 	}
 
-	r = sd_bus_message_append_array(m, 'y', array, array_size);
-	if (r < 0) {
-		fprintf(stderr, "Failed to append array: %s\n", strerror(-r));
+	ret = sd_bus_message_append_array(m, 'y', array, array_size);
+	if (ret < 0) {
+		fprintf(stderr, "Failed to append array: %s\n", strerror(-ret));
 		goto finish;
 	}
 
-	r = sd_bus_call(bus, m, -1, &error, &reply);
-	if (r < 0) {
+	ret = sd_bus_call(bus, m, -1, &error, &reply);
+	if (ret < 0) {
 		fprintf(stderr, "Failed to send message: %s\n", error.message);
 		goto finish;
 	}
 
-	r = sd_bus_message_read_array(reply, 'y', (const void **)&array, &array_size);
+	ret = sd_bus_message_read_array(reply, 'y', (const void **)&array, &array_size);
 	if (r < 0) {
-		fprintf(stderr, "Failed to parse parameters: %s\n", strerror(-r));
+		fprintf(stderr, "Failed to parse parameters: %s\n", strerror(-ret));
 		goto finish;
 	}
 
 	printf("Receive the response, array size = %ld.\n", array_size);
 	if (array_size != sizeof(pldm_get_tid_response_t)) {
-		fprintf(stderr, "The invalid PLDM response size.\n");
+		fprintf(stderr, "The invalid PLDM response's size.\n");
 		goto finish;
 	}
 	
@@ -83,5 +83,5 @@ finish:
 	sd_bus_message_unref(m);
 	sd_bus_unref(bus);
 
-	return r < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
+	return ret < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
 }
