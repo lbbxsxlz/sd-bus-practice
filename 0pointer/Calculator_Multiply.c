@@ -28,15 +28,15 @@ int main(int argc, char *argv[])
 
 	/* Issue the method call and store the respons message in m */
 	r = sd_bus_call_method(bus,
-								"net.poettering.Calculator",		/* service to contact */
-								"/net/poettering/Calculator",		/* object path */
-								"net.poettering.Calculator",		/* interface name */
-								"Multiply",							/* method name */
-								&error,								/* object to return error in */
-								&m,									/* return message on success */
-								"xx",								/* input signature */
-								x,									/* first argument */
-								y);									/* second argument */
+				"net.poettering.Calculator",		/* service to contact */
+				"/net/poettering/Calculator",		/* object path */
+				"net.poettering.Calculator",		/* interface name */
+				"Multiply",				/* method name */
+				&error,					/* object to return error in */
+				&m,					/* return message on success */
+				"xx",					/* input signature */
+				x,
+				y);
 	if (r < 0) {
 		fprintf(stderr, "Failed to issue method call: %s\n", error.message);
 		goto finish;
