@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
 	
 	/* Install the object */
 	r = sd_bus_add_object_vtable(bus,
-								&slot,
-								"/org/desktop/lbbxsxlz",  /* object path */
-								"org.desktop.lbbxsxlz.Chat",   /* interface name */
-								chat_vtable,
-								NULL);
+					&slot,
+					"/org/desktop/lbbxsxlz",	/* object path */
+					"org.desktop.lbbxsxlz.Chat",	/* interface name */
+					chat_vtable,
+					NULL);
 	if (r < 0) {
 		fprintf(stderr, "Failed to issue method call: %s\n", strerror(-r));
 		goto finish;
