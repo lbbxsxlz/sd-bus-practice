@@ -20,14 +20,14 @@ int main(int argc, char *argv[])
 	fprintf(stderr, "connect to system bus: %s\n", strerror(-r));
 	/* Issue the method call and store the respons message in m */
 	r = sd_bus_call_method(bus,
-				"org.desktop.lbbxsxlz",				/* service to contact */
-				"/org/desktop/lbbxsxlz",			/* object path */
-				"org.desktop.lbbxsxlz.Chat",			/* interface name */
-				"Chat",						/* method name */
-				&error,						/* object to return error in */
-				&m,						/* return message on success */
-				"s",						/* input signature */
-				"Hi");
+					"org.desktop.lbbxsxlz",				/* service to contact */
+					"/org/desktop/lbbxsxlz",			/* object path */
+					"org.desktop.lbbxsxlz.Chat",			/* interface name */
+					"Chat",						/* method name */
+					&error,						/* object to return error in */
+					&m,						/* return message on success */
+					"s",						/* input signature */
+					"Hello");
 	if (r < 0) {
 		fprintf(stderr, "Failed to issue method call: %s\n", error.message);
 		goto finish;

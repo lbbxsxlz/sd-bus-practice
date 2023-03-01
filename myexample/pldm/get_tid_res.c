@@ -70,7 +70,7 @@ static int method_GetTID(sd_bus_message *m, void *userdata, sd_bus_error *ret_er
 /* The vtable of our little object, implements the interface */
 static const sd_bus_vtable pldm_resp_vtable[] = {
 	SD_BUS_VTABLE_START(0),
-		SD_BUS_METHOD("GetTID", "ay", "ay", method_GetTID, SD_BUS_VTABLE_UNPRIVILEGED),
+	SD_BUS_METHOD("GetTID", "ay", "ay", method_GetTID, SD_BUS_VTABLE_UNPRIVILEGED),
 	SD_BUS_VTABLE_END
 };
 

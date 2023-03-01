@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
 	/* Connect to the user bus this time */
 	r = sd_bus_open_user(&bus);
 	if (r < 0) {
-			fprintf(stderr, "Failed to connect to session bus: %s\n", strerror(-r));
-			goto finish;
+		fprintf(stderr, "Failed to connect to session bus: %s\n", strerror(-r));
+		goto finish;
 	}
 	
 	/* Install the object */
