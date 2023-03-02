@@ -88,8 +88,8 @@ int main(int argc, char *argv[]) {
 	/* Install the object */
 	r = sd_bus_add_object_vtable(bus,
 					&slot,
-					"/openbmc/PLDM",  /* object path */
-					"openbmc.PLDM.pldm_rsp",   /* interface name */
+					"/openbmc/PLDM",		/* object path */
+					"openbmc.PLDM.pldm_rsp",	/* interface name */
 					pldm_resp_vtable,
 					NULL);
 	if (r < 0) {
