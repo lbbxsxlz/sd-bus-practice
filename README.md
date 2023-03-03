@@ -22,3 +22,9 @@ These APIs provided in sd-bus.h are implemented as a shared library, which can b
 
 [add object vatable example](Linux_manual/add_object_vtable_example.c)
 
+### my examples
+[hello world service](myexample/hello_world_service.c)
+
+[hello world client](myexample/hello_world_client.c)
+
+[pldm get tid example](myexample/pldm)
