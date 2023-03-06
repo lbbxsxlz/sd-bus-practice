@@ -8,6 +8,10 @@ These APIs provided in sd-bus.h are implemented as a shared library, which can b
 1. #include <systemd/sd-bus.h>
 2. pkg-config --cflags --libs libsystemd
 
+## How to register a system bus
+1. create a configure file named `$(service_name)`.conf
+2. cp `$(service_name)`.conf to `/usr/share/dbus-1/system.d/` or `/etc/dbus-1/system.d/`
+
 ## sd-bus demos
 ### From 0pointer
 [Calculator](0pointer/Calculator.c)
