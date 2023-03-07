@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 
 	/* Connect to the system bus this time */
 	//r = sd_bus_default_system(&bus);
-  r = sd_bus_open_system(&bus);
+	r = sd_bus_open_system(&bus);
 	if (r < 0) {
 		fprintf(stderr, "Failed to connect to system bus: %s\n", strerror(-r));
 		goto finish;
