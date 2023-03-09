@@ -18,8 +18,13 @@ These APIs provided in sd-bus.h are implemented as a shared library, which can b
 
 [Queue service job](0pointer/Queue_service_job.c)
 
-/* Creater a client to communicate with Calculator service */
+/* Creater a client to communicate with Calculator service */<br>
 [Calculator client](0pointer/Calculator_Multiply.c)
+
+/* Register Calculator service on system bus */<br>
+[code modify in here](0pointer/Calculator_system_bus.c)
+
+[The associated configure file](0pointer/net.pottering.Calculator.conf)
 
 ### From Linux Manual
 [Print unit path](Linux_manual/print-unit-path.c)
